@@ -2,18 +2,18 @@ package keeper
 
 import (
 	"context"
+	"strconv"
 	"strings"
 
-	"github.com/alice/checkers/x/checkers/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	rules "github.com/alice/checkers/x/checkers/rules"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	rules "github.com/alice/checkers/x/checkers/rules"
+	"github.com/alice/checkers/x/checkers/types"
 )
 
 func (k msgServer) PlayMove(goCtx context.Context, msg *types.MsgPlayMove) (*types.MsgPlayMoveResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
 	storedGame, found := k.Keeper.GetStoredGame(ctx, msg.IdValue)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrGameNotFound, "game not found %s", msg.IdValue)
